@@ -320,7 +320,10 @@ LUALIB_API int luaopen_bd_mcch(lua_State *L)
 	//metatable for main table
 	lua_createtable(L, 0, 2);
 
-	luaL_register(L, LUA_MCCHLIBNAME, mcch_funcs);
+	luaL_setfuncs(L, mcch_funcs, 0);
+	lua_pushvalue(L, -1);
+	lua_setglobal(L, LUA_MCCHLIBNAME);
+
 	lua_setfield(L, -2, "__index");
 	lua_pushcfunction(L, setreadonly);
 	lua_setfield(L, -2, "__newindex");
